@@ -18,20 +18,27 @@ class MeasurementNode(models.Model):
 
 
 class Temperature(models.Model):
-    measurement_node = models.ForeignKey(MeasurementNode)
+    measurement_node = models.ForeignKey(MeasurementNode,
+                                         on_delete=models.PROTECT)
     measurement_datetime = models.DateTimeField('Time temperature was measured')
-    measurement_value = models.DecimalField('Temperature value', max_digits=5, decimal_places=2)
+    measurement_value = models.DecimalField('Temperature value',
+                                            max_digits=5,
+                                            decimal_places=2)
 
 
 class Wind(models.Model):
-    measurement_node = models.ForeignKey(MeasurementNode)
+    measurement_node = models.ForeignKey(MeasurementNode,
+                                         on_delete=models.PROTECT)
     datetime = models.DateTimeField('Time wind was measured')
-    speed_value = models.DecimalField('Wind speed', max_digits=5, decimal_places=2)
+    speed_value = models.DecimalField('Wind speed',
+                                      max_digits=5,
+                                      decimal_places=2)
     direction_value = models.PositiveSmallIntegerField('Wind direction')
 
 
 class Rain(models.Model):
-    measurement_node = models.ForeignKey(MeasurementNode)
+    measurement_node = models.ForeignKey(MeasurementNode,
+                                         on_delete=models.PROTECT)
     datetime = models.DateTimeField('Datetime rainfall was measured')
     duration = models.DurationField('Length rainfall was measured')
     value = models.PositiveSmallIntegerField('Amount of rainfall')
