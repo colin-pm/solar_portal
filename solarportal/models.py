@@ -2,12 +2,14 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from decimal import *
 
-#### Irrigation models
+
+# Irrigation models
 class Watering(models.Model):
+    datetime = models.DateTimeField('Datetime to start watering')
+    duration = models.DurationField('Ammount of time to water for')
 
 
-
-#### Weather models
+# Weather models
 class MeasurementNode(models.Model):
     serial_number = models.CharField(max_length=20)
     created = models.DateTimeField('Datetime node was created')
@@ -22,12 +24,14 @@ class Temperature(models.Model):
 
 
 class Wind(models.Model):
-    measurement_datetime = models.DateTimeField('Time wind was measured')
+    measurement_node = models.ForeignKey(MeasurementNode)
+    datetime = models.DateTimeField('Time wind was measured')
     speed_value = models.DecimalField('Wind speed', max_digits=5, decimal_places=2)
     direction_value = models.PositiveSmallIntegerField('Wind direction')
 
 
 class Rain(models.Model):
-    measurement_datetime = models.DateTimeField('Datetime rainfall was measured')
-    measurement_duration = models.DurationField('Length rainfall was measured')
-    measurement_value = models.PositiveSmallIntegerField('Amount of rainfall')
+    measurement_node = models.ForeignKey(MeasurementNode)
+    datetime = models.DateTimeField('Datetime rainfall was measured')
+    duration = models.DurationField('Length rainfall was measured')
+    value = models.PositiveSmallIntegerField('Amount of rainfall')
