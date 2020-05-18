@@ -10,5 +10,5 @@ urlpatterns = [
     path('weather', views.weather, name='weather'),
     path('watering', views.watering, name='watering'),
     path('login', auth_views.LoginView.as_view(template_name="../templates/login.html"), name='login'),
-    path('logout', views.logout_view)
+    path('logout', views.logout_view, name="logout")
 ]
